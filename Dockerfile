@@ -9,4 +9,6 @@ ARG JAR_FILE=target/*.jar
 # na linha abaixo será copiado, no sistema operacional, a aplicação contida no parâmentro registrado acima.
 COPY ${JAR_FILE} app.jar
 # na linha abaixo será definido o comando que será executado no container, para subir a aplicação.
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# o parâmetro -Xmx512m é para limitar o conteúdo de memória da máquina virtual no provedor da cloud.
+# o parâmetro PORT é para não gerar conflito na cloud com a porta a ser utilizada pelo servidor web.
+ENTRYPOINT ["java","-Xmx512m","-Dserver.port=${PORT}", "-jar", "/app.jar"]
