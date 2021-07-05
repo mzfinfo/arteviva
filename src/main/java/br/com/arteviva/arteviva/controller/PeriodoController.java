@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,7 @@ public class PeriodoController {
 	 * @return
 	 */
 	@GetMapping
+	@Cacheable(value = "listaDePeriodos") // necessário indicar ao spring um Id para esse processo de cache.
 	public ResponseEntity<List<PeriodoDto>> obterPeriodos() {
 
 		return ResponseEntity.ok(service.obterPeriodos());
@@ -60,6 +63,7 @@ public class PeriodoController {
 	 */
 	@PostMapping
 	@Transactional
+	@CacheEvict(value = "listaDePeriodos", allEntries = true) // necessário para que o spring limpe o cache pois houve uma mudança de dados.
 	public ResponseEntity<?> criarRecursoPeriodo(@RequestBody @Valid PeriodoForm periodo){
 		PeriodoDto pedido = service.criarRecursoPeriodo(periodo);
         URI location = service.retornarURI(pedido.getId());
@@ -76,6 +80,7 @@ public class PeriodoController {
 	 * @return
 	 */
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "listaDePeriodos", allEntries = true) // necessário para que o spring limpe o cache pois houve uma mudança de dados.
 	public ResponseEntity<?> excluirPeriodoById(@PathVariable("id") Long id) {
 
 		if (service.excluirPeriodoById(id)) {
@@ -92,6 +97,7 @@ public class PeriodoController {
 	 */
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDePeriodos", allEntries = true) // necessário para que o spring limpe o cache pois houve uma mudança de dados.
 	public ResponseEntity<?> atualizarRecursoPeriodo(@PathVariable("id") Long id, @RequestBody @Valid PeriodoForm periodo){
 		
 		if (service.atualizarRecursoPeriodo(id, periodo)) {

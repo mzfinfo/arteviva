@@ -5,21 +5,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
 @Entity
-public class Periodo {
+public class Perfil implements GrantedAuthority {
 
-	// Idenficador único da entidade período.Receberá um id automático incrementado.
+	private static final long serialVersionUID = 2415529833488139441L;
+
+	// Idenficador único da entidade Perfil.Receberá um id automático incrementado.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
-	private String inicio;
-	private String fim;
-	private String descricao;
+
+	@Override
+	public String getAuthority() {
+		return this.nome;
+	}
 
 }

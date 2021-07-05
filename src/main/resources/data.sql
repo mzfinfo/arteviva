@@ -38,4 +38,32 @@ Insert Into Periodo(nome,
 Values('Contemporâneo', '1900','2021','Música contemporânea é a música dos séculos XX e XXI, feita após o movimento impressionista e os vários nacionalismos.');
 
 
+Insert Into Usuario(nome, 
+                    email, 
+                    senha) 
+Values('milton',  
+       'mzfinfo.zf@gmail.com',
+       '$2a$10$j.jdxqes7WILkVFCKgOhyuplXBugm.tshZpmQgIIuCrPRRRpI2vm6');
 
+Insert Into Usuario(nome, 
+                    email, 
+                    senha) 
+Values('sandra',  
+       'sandra@gmail.com',
+       '$2a$10$.jV1Xt3iwFL9TW4bAkI9GOpvpuLb8C8PlR2JysGFAysaHrtC3W59u');
+
+Insert Into Usuario(nome, 
+                    email, 
+                    senha)
+Values('gabriel',  
+       'gabriel@gmail.com',
+       '$2a$10$zK6GKTnEH3wCqMgkUpt/2emRkV6LhETresxHAql2F7pIRDDvZ.Rf6');
+       
+INSERT INTO PERFIL(id, nome) VALUES(1, 'ROLE_COMUM');
+INSERT INTO PERFIL(id, nome) VALUES(2, 'ROLE_ADMIN');
+
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES(1, 2);
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES(2, 1);
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES(3, 1);
+
+                    
